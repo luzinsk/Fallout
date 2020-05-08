@@ -39,13 +39,13 @@ public class Bar {
         bar.setProgress(1.0);
     }
 
-    public void useAmmo() {
+    public void useAmmo(double amount) {
         double progress = bar.getProgress();
 
-        if (progress < .10)
-            bar.setProgress(0.0);
+        if (progress < amount)
+            bar.setProgress(0);
         else {
-            progress = progress - .10;
+            progress = progress - amount ;
             bar.setProgress(progress);
         }
     }
