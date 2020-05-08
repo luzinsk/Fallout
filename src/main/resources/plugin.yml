@@ -1,0 +1,9 @@
+name: Fallout
+main: com.luzinsk.fallout.Fallout
+version: 1.0
+api-version: 1.14
+description: not available
+author: Carlton
+commands:
+  crossbow:
+    description: gives you a crossbow
