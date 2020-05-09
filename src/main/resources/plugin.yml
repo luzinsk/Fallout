@@ -5,5 +5,7 @@ api-version: 1.14
 description: not available
 author: Carlton
 commands:
-  crossbow:
+  m16:
     description: gives you a crossbow
+  awp:
+    description: gives you an awp
