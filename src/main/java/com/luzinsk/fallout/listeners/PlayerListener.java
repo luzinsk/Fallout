@@ -34,28 +34,29 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL)
     public void useItemListener(PlayerInteractEvent event) {
 
-        if(event.hasItem() && event.getItem().getType().equals(Material.CROSSBOW)) {
+        if (event.hasItem() && event.getItem().getType().equals(Material.CROSSBOW)) {
             Player player = event.getPlayer();
-
             FalloutPlayer fplayer = falloutPlayers.get(player.getUniqueId().toString());
-
-            ItemStack item = player.getInventory().getItemInMainHand();
+            ItemStack item = fplayer.getCurrentItem();
             CrossbowMeta meta = (CrossbowMeta) item.getItemMeta();
 
-            if (event.getAction().equals(Action.LEFT_CLICK_AIR) && fplayer.getCurrentWeap().hasAmmo() ||
-            event.getAction().equals(Action.LEFT_CLICK_BLOCK) && fplayer.getCurrentWeap().hasAmmo()) {
+
+            // FIX HERE \/
+            if (event.getAction().equals(Action.LEFT_CLICK_AIR) && fplayer.hasAmmo() ||
+            event.getAction().equals(Action.LEFT_CLICK_BLOCK) && fplayer.hasAmmo()) {
                 meta.setChargedProjectiles(null);
                 player.getInventory().getItemInMainHand().setItemMeta(meta);
-                player.getInventory().addItem(new ItemStack(Material.ARROW, fplayer.getCurrentWeap().getMagazine()));
-                fplayer.getCurrentWeap().setMagazine(0);
-                falloutPlayers.get(event.getPlayer().getUniqueId().toString()).createFalloutPlayerScoreboard();
-            } else if (fplayer.getCurrentWeap().hasAmmo() && !event.getAction().equals(Action.LEFT_CLICK_AIR) && !event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
-                fplayer.getCurrentWeap().decrementMagazine();
-                falloutPlayers.get(event.getPlayer().getUniqueId().toString()).createFalloutPlayerScoreboard();
+                player.getInventory().addItem(new ItemStack(Material.ARROW, fplayer.getAmmo()));
+                fplayer.setAmmo(0);
+                fplayer.createFalloutPlayerScoreboard();
+            } else if (fplayer.hasAmmo()){
+                fplayer.setAmmo(fplayer.getAmmo() - 1); // ???????????? WHY NO WORK? entities>falloutplayer
+                fplayer.createFalloutPlayerScoreboard();
                 if (!meta.hasChargedProjectiles()) {
                     meta.addChargedProjectile(new ItemStack(Material.ARROW, 1));
                     player.getInventory().getItemInMainHand().setItemMeta(meta);
                 }
+
             }
         }
     }
@@ -112,14 +113,7 @@ public class PlayerListener implements Listener {
             ItemStack stack = inv.getItem(slotId);
 
             if (stack != null) {
-                if (stack.getItemMeta().getLore().equals(FalloutItemFactory.M16())) {
-                    falloutPlayers.get(event.getPlayer().getUniqueId().toString()).setCurrentWeap(new M16());
-                } else if (stack.getItemMeta().getLore().equals(FalloutItemFactory.AWP())) {
-                    falloutPlayers.get(event.getPlayer().getUniqueId().toString()).setCurrentWeap(new AWP());
-                } else {
-                    falloutPlayers.get(event.getPlayer().getUniqueId().toString()).setCurrentWeap(new None());
-                }
-
+                falloutPlayers.get(event.getPlayer().getUniqueId().toString()).setCurrentItem(stack);
             }
             falloutPlayers.get(event.getPlayer().getUniqueId().toString()).createFalloutPlayerScoreboard();
         }

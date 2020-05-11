@@ -1,5 +1,6 @@
 package com.luzinsk.fallout;
 
+import com.luzinsk.fallout.commands.AmmoCommand;
 import com.luzinsk.fallout.commands.AwpCommand;
 import com.luzinsk.fallout.commands.M16Command;
 import com.luzinsk.fallout.entities.FalloutPlayer;
@@ -31,6 +32,7 @@ public class Fallout extends JavaPlugin {
         //Commands
         Objects.requireNonNull(getCommand("m16")).setExecutor(new M16Command());
         Objects.requireNonNull(getCommand("awp")).setExecutor(new AwpCommand());
+        Objects.requireNonNull(getCommand("ammo")).setExecutor(new AmmoCommand());
 
         Bukkit.getScheduler().runTaskTimer(this, new Runnable(){
 
@@ -38,22 +40,23 @@ public class Fallout extends JavaPlugin {
             public void run() {
 
                 for(Player player : Bukkit.getServer().getOnlinePlayers()) {
-                    ItemStack item = player.getInventory().getItemInMainHand();
-                    if (!item.equals(null)) {
-                        if (item.getItemMeta().getLore().equals(FalloutItemFactory.M16()) || item.getItemMeta().getLore().equals(FalloutItemFactory.AWP())) {
-                            CrossbowMeta meta = (CrossbowMeta) item.getItemMeta();
-                            FalloutPlayer fplayer = PlayerListener.falloutPlayers.get(player.getUniqueId().toString());
+                    FalloutPlayer fplayer = PlayerListener.falloutPlayers.get(player.getUniqueId().toString());
 
-                            if (!fplayer.getCurrentWeap().hasAmmo() && meta.hasChargedProjectiles() && fplayer.getCurrentWeap().canReload(player)) {
+                    if (!fplayer.getCurrentItem().equals(null)) {
+                        ItemStack item = fplayer.getCurrentItem();
+                        if (item.getItemMeta().getLore().equals(FalloutItemFactory.M16().getItemMeta().getLore()) || item.getItemMeta().getLore().equals(FalloutItemFactory.AWP().getItemMeta().getLore())) {
+
+                            CrossbowMeta meta = (CrossbowMeta) item.getItemMeta();
+                            if (!fplayer.hasAmmo() && meta.hasChargedProjectiles() && fplayer.canReload()) {
                                 int count = 0;
                                 for (ItemStack stack : player.getInventory().getContents()) {
                                     if (stack != null && stack.getType() == Material.ARROW)
                                         count += stack.getAmount();
                                 }
-                                if (count >= fplayer.getCurrentWeap().getMagazineSize() - 1)
-                                    fplayer.getCurrentWeap().reload(player, fplayer.getCurrentWeap().getMagazineSize());
+                                if (count >= fplayer.getMaxAmmo() - 1)
+                                    fplayer.reload(fplayer.getMaxAmmo());
                                 else
-                                    fplayer.getCurrentWeap().reload(player, count + 1);
+                                    fplayer.reload(count + 1);
                                 fplayer.createFalloutPlayerScoreboard();
                             }
                         }

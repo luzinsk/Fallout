@@ -24,10 +24,10 @@ public class PlayerScoreboardDisplay {
         Score line1 = obj.getScore(ChatColor.DARK_PURPLE + "-=-=-=-=-=-=-=-=-=-");
         line1.setScore(3);
 
-        Score line2 = obj.getScore(ChatColor.GOLD + "Current Weapon: " + ChatColor.AQUA + falloutPlayers.get(player.getUniqueId().toString()).getCurrentWeap().toString());
+        Score line2 = obj.getScore(ChatColor.GOLD + "Current Weapon: " + ChatColor.AQUA + falloutPlayers.get(player.getUniqueId().toString()).getCurrentItem().getItemMeta().getDisplayName());
         line2.setScore(2);
 
-        Score line3 = obj.getScore(ChatColor.GOLD + "Magazine: " + ChatColor.AQUA + falloutPlayers.get(player.getUniqueId().toString()).getCurrentWeap().getMagazine() + "/" + falloutPlayers.get(player.getUniqueId().toString()).getCurrentWeap().getMagazineSize());
+        Score line3 = obj.getScore(ChatColor.GOLD + "Magazine: " + ChatColor.AQUA + falloutPlayers.get(player.getUniqueId().toString()).getAmmo() + "/" + falloutPlayers.get(player.getUniqueId().toString()).getMaxAmmo());
         line3.setScore(1);
 
         Score line4 = obj.getScore(ChatColor.DARK_PURPLE + "=-=-=-=-=-=-=-=-=-=");

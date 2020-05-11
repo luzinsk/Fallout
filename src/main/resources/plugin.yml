@@ -9,3 +9,5 @@ commands:
     description: gives you a crossbow
   awp:
     description: gives you an awp
+  ammo:
+    description: shows how much ammo you have
