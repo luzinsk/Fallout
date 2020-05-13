@@ -29,10 +29,8 @@ public class PlayerScoreboardDisplay {
         FalloutPlayer fplayer = falloutPlayers.get(player.getUniqueId().toString());
 
         if (fplayer != null) {
-
             Score line1 = obj.getScore(ChatColor.DARK_PURPLE + "-=-=-=-=-=-=-=-=-=-");
             line1.setScore(3);
-
             if (fplayer.getCurrentItem() != null && fplayer.getCurrentItem().getItemMeta().getLore() != null) {
                 if (fplayer.getCurrentItem().getItemMeta().getLore().equals(FalloutItemFactory.M16().getItemMeta().getLore()) ||
                         fplayer.getCurrentItem().getItemMeta().getLore().equals(FalloutItemFactory.AWP().getItemMeta().getLore())) {
@@ -41,13 +39,13 @@ public class PlayerScoreboardDisplay {
                     Score line3 = obj.getScore(ChatColor.GOLD + "Magazine: " + ChatColor.AQUA + fplayer.getAmmo() + "/" + fplayer.getMaxAmmo());
                     line3.setScore(1);
                 } else {
-                    Score line2 = obj.getScore(ChatColor.GOLD + "Current Weapon:" + ChatColor.RED + "" + ChatColor.BOLD + "N/A");
+                    Score line2 = obj.getScore(ChatColor.GOLD + "Current Weapon:" + ChatColor.RED + "" + ChatColor.BOLD + " N/A");
                     line2.setScore(2);
                     Score line3 = obj.getScore(ChatColor.GOLD + "Magazine: " + ChatColor.AQUA + "N/A");
                     line3.setScore(1);
                 }
             } else {
-                Score line2 = obj.getScore(ChatColor.GOLD + "Current Weapon:" + ChatColor.RED + "" + ChatColor.BOLD + "N/A");
+                Score line2 = obj.getScore(ChatColor.GOLD + "Current Weapon:" + ChatColor.RED + "" + ChatColor.BOLD + " N/A");
                 line2.setScore(2);
                 Score line3 = obj.getScore(ChatColor.GOLD + "Magazine: " + ChatColor.AQUA + "N/A");
                 line3.setScore(1);

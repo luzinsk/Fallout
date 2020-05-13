@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class M16Command implements CommandExecutor {
+public class M4Command implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -17,7 +17,7 @@ public class M16Command implements CommandExecutor {
             sender.sendMessage("Console");
             return true;
         } else {
-            player.getInventory().addItem(FalloutItemFactory.M16());
+            player.getInventory().addItem(FalloutItemFactory.M4());
         }
 
         return true;

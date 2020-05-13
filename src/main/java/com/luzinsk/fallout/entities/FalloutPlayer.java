@@ -18,10 +18,7 @@ public class FalloutPlayer {
 
     private NamespacedKey ammo = new NamespacedKey(Fallout.instance, "ammo");
     private NamespacedKey maxAmmo = new NamespacedKey(Fallout.instance, "maxAmmo");
-    /*
-    private ItemMeta itemMeta = currentItem.getItemMeta();
-    private PersistentDataContainer container = itemMeta.getPersistentDataContainer();
-*/
+
     public FalloutPlayer(Player player) {
         this.player = player;
         board = new PlayerScoreboardDisplay(player);
@@ -77,13 +74,11 @@ public class FalloutPlayer {
     }
 
     public void setAmmo(int count) {
-        player.sendMessage(getAmmo() + ""); // DEBUGGING
         ItemMeta itemMeta = currentItem.getItemMeta();
         PersistentDataContainer container = itemMeta.getPersistentDataContainer();
 
         if (container.has(ammo, PersistentDataType.INTEGER)) {
             container.set(ammo, PersistentDataType.INTEGER, count);
-            player.sendMessage("setting ammo to " + count);
         }
         currentItem.setItemMeta(itemMeta);
     }

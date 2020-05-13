@@ -45,9 +45,7 @@ public class PlayerListener implements Listener {
                 player.getInventory().addItem(new ItemStack(Material.ARROW, fplayer.getAmmo()));
                 fplayer.setAmmo(0);
                 fplayer.createFalloutPlayerScoreboard();
-                // FIX HERE \/
-            } else if (fplayer.hasAmmo()) {
-                fplayer.setCurrentItem(player.getInventory().getItemInMainHand());
+            } else if (fplayer.hasAmmo() && item.getItemMeta().getLore().equals(FalloutItemFactory.AWP().getItemMeta().getLore())) {
                 if (fplayer.hasAmmo())
                     fplayer.setAmmo(fplayer.getAmmo() - 1);
                 fplayer.createFalloutPlayerScoreboard();
@@ -55,14 +53,14 @@ public class PlayerListener implements Listener {
                     meta = (CrossbowMeta) item.getItemMeta();
                     meta.addChargedProjectile(new ItemStack(Material.ARROW, 1));
                     player.getInventory().getItemInMainHand().setItemMeta(meta);
+                    player.updateInventory();
                 }
-
             }
         }
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
-    public void useItemListener(EntityShootBowEvent event) {
+    public void shootArrowListener(EntityShootBowEvent event) {
 
         //=============================================================================================================
         // Takes the arrow entity and changes it's velocity.
@@ -75,7 +73,7 @@ public class PlayerListener implements Listener {
         if (entity.getType().equals(EntityType.PLAYER)) {
             Player p = (Player) entity;
             Vector vec = p.getLocation().getDirection();
-            if (event.getBow().getItemMeta().getLore().equals(FalloutItemFactory.AWP()))
+            if (event.getBow().getItemMeta().getLore().equals(FalloutItemFactory.AWP().getItemMeta().getLore()))
                 arrow.setVelocity(new Vector(vec.getX() * speed * 10, vec.getY() * speed * 10, vec.getZ() * speed * 10));
             else
                 arrow.setVelocity(new Vector(vec.getX() * speed * 4.5, vec.getY() * speed * 3, vec.getZ() * speed * 4.5));
@@ -114,8 +112,7 @@ public class PlayerListener implements Listener {
             if (slotId >= 0 && slotId < inv.getSize()) {
                 ItemStack stack = inv.getItem(slotId);
 
-                if (stack != null)
-                    falloutPlayers.get(event.getPlayer().getUniqueId().toString()).setCurrentItem(stack);
+                falloutPlayers.get(event.getPlayer().getUniqueId().toString()).setCurrentItem(stack);
             }
             falloutPlayers.get(event.getPlayer().getUniqueId().toString()).createFalloutPlayerScoreboard();
         }

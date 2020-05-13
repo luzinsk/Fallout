@@ -9,23 +9,23 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class FalloutItemFactory {
 
-    public static ItemStack M16() {
+    public static ItemStack M4() {
 
-        ItemStack M16 = new ItemStack(Material.CROSSBOW);
-        ItemMeta meta = M16.getItemMeta();
+        ItemStack M4 = new ItemStack(Material.CROSSBOW);
+        ItemMeta meta = M4.getItemMeta();
         NamespacedKey ammo = new NamespacedKey(Fallout.instance, "ammo");
         NamespacedKey maxAmmo = new NamespacedKey(Fallout.instance, "maxAmmo");
         meta.getPersistentDataContainer().set(ammo, PersistentDataType.INTEGER, 0);
         meta.getPersistentDataContainer().set(maxAmmo, PersistentDataType.INTEGER, 30);
         meta.setLore(Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "Semi Automatic Rifle"));
         meta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "M-16");
+        meta.setUnbreakable(true);
 
-        M16.setItemMeta(meta);
-        return M16;
+        M4.setItemMeta(meta);
+        return M4;
     }
 
     public static ItemStack AWP() {
@@ -38,6 +38,7 @@ public class FalloutItemFactory {
         meta.getPersistentDataContainer().set(maxAmmo, PersistentDataType.INTEGER, 5);
         meta.setLore(Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "Sniper Rifle"));
         meta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "AWP");
+        meta.setUnbreakable(true);
 
         AWP.setItemMeta(meta);
         return AWP;
