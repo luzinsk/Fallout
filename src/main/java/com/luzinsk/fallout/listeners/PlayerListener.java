@@ -2,9 +2,6 @@ package com.luzinsk.fallout.listeners;
 
 import com.luzinsk.fallout.entities.FalloutPlayer;
 import com.luzinsk.fallout.factory.FalloutItemFactory;
-import com.luzinsk.fallout.weapons.type.AWP;
-import com.luzinsk.fallout.weapons.type.M16;
-import com.luzinsk.fallout.weapons.type.None;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -39,9 +36,8 @@ public class PlayerListener implements Listener {
             FalloutPlayer fplayer = falloutPlayers.get(player.getUniqueId().toString());
             ItemStack item = fplayer.getCurrentItem();
             CrossbowMeta meta = (CrossbowMeta) item.getItemMeta();
+            fplayer.setCurrentItem(player.getInventory().getItemInMainHand());
 
-
-            // FIX HERE \/
             if (event.getAction().equals(Action.LEFT_CLICK_AIR) && fplayer.hasAmmo() ||
             event.getAction().equals(Action.LEFT_CLICK_BLOCK) && fplayer.hasAmmo()) {
                 meta.setChargedProjectiles(null);
@@ -49,10 +45,14 @@ public class PlayerListener implements Listener {
                 player.getInventory().addItem(new ItemStack(Material.ARROW, fplayer.getAmmo()));
                 fplayer.setAmmo(0);
                 fplayer.createFalloutPlayerScoreboard();
-            } else if (fplayer.hasAmmo()){
-                fplayer.setAmmo(fplayer.getAmmo() - 1); // ???????????? WHY NO WORK? entities>falloutplayer
+                // FIX HERE \/
+            } else if (fplayer.hasAmmo()) {
+                fplayer.setCurrentItem(player.getInventory().getItemInMainHand());
+                if (fplayer.hasAmmo())
+                    fplayer.setAmmo(fplayer.getAmmo() - 1);
                 fplayer.createFalloutPlayerScoreboard();
                 if (!meta.hasChargedProjectiles()) {
+                    meta = (CrossbowMeta) item.getItemMeta();
                     meta.addChargedProjectile(new ItemStack(Material.ARROW, 1));
                     player.getInventory().getItemInMainHand().setItemMeta(meta);
                 }
@@ -106,14 +106,16 @@ public class PlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onItemSwitch(PlayerItemHeldEvent event) {
-        Inventory inv = event.getPlayer().getInventory();
 
-        int slotId = event.getNewSlot();
-        if (slotId >= 0 && slotId < inv.getSize()) {
-            ItemStack stack = inv.getItem(slotId);
+        if (falloutPlayers.get(event.getPlayer().getUniqueId().toString()) != null) {
+            Inventory inv = event.getPlayer().getInventory();
 
-            if (stack != null) {
-                falloutPlayers.get(event.getPlayer().getUniqueId().toString()).setCurrentItem(stack);
+            int slotId = event.getNewSlot();
+            if (slotId >= 0 && slotId < inv.getSize()) {
+                ItemStack stack = inv.getItem(slotId);
+
+                if (stack != null)
+                    falloutPlayers.get(event.getPlayer().getUniqueId().toString()).setCurrentItem(stack);
             }
             falloutPlayers.get(event.getPlayer().getUniqueId().toString()).createFalloutPlayerScoreboard();
         }

@@ -11,3 +11,5 @@ commands:
     description: gives you an awp
   ammo:
     description: shows how much ammo you have
+  test:
+    description: testing
