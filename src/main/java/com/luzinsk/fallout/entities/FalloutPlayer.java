@@ -18,6 +18,8 @@ public class FalloutPlayer {
 
     private NamespacedKey ammo = new NamespacedKey(Fallout.instance, "ammo");
     private NamespacedKey maxAmmo = new NamespacedKey(Fallout.instance, "maxAmmo");
+    private NamespacedKey timer = new NamespacedKey(Fallout.instance, "timer");
+    private NamespacedKey maxTimer = new NamespacedKey(Fallout.instance, "maxTimer");
 
     public FalloutPlayer(Player player) {
         this.player = player;
@@ -81,6 +83,26 @@ public class FalloutPlayer {
             container.set(ammo, PersistentDataType.INTEGER, count);
         }
         currentItem.setItemMeta(itemMeta);
+    }
+
+    public void setTimer(int count) {
+        ItemMeta itemMeta = currentItem.getItemMeta();
+        PersistentDataContainer container = itemMeta.getPersistentDataContainer();
+
+        if (container.has(timer, PersistentDataType.INTEGER)) {
+            container.set(timer, PersistentDataType.INTEGER, count);
+        }
+        currentItem.setItemMeta(itemMeta);
+    }
+
+    public int getTimer() {
+        ItemMeta itemMeta = currentItem.getItemMeta();
+        return itemMeta.getPersistentDataContainer().get(timer, PersistentDataType.INTEGER);
+    }
+
+    public int getMaxTimer() {
+        ItemMeta itemMeta = currentItem.getItemMeta();
+        return itemMeta.getPersistentDataContainer().get(maxTimer, PersistentDataType.INTEGER);
     }
 
 

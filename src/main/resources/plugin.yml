@@ -5,10 +5,14 @@ api-version: 1.14
 description: not available
 author: Carlton
 commands:
-  m16:
-    description: gives you a crossbow
+  m4:
+    description: gives you an m4
+  m97:
+    description: gives you an m97
   awp:
     description: gives you an awp
+  topaz:
+    description: gives you a topaz
   ammo:
     description: shows how much ammo you have
   test:

@@ -32,8 +32,11 @@ public class PlayerScoreboardDisplay {
             Score line1 = obj.getScore(ChatColor.DARK_PURPLE + "-=-=-=-=-=-=-=-=-=-");
             line1.setScore(3);
             if (fplayer.getCurrentItem() != null && fplayer.getCurrentItem().getItemMeta().getLore() != null) {
-                if (fplayer.getCurrentItem().getItemMeta().getLore().equals(FalloutItemFactory.M16().getItemMeta().getLore()) ||
-                        fplayer.getCurrentItem().getItemMeta().getLore().equals(FalloutItemFactory.AWP().getItemMeta().getLore())) {
+                if (fplayer.getCurrentItem().getItemMeta().getLore().equals(FalloutItemFactory.M4().getItemMeta().getLore()) ||
+                        fplayer.getCurrentItem().getItemMeta().getLore().equals(FalloutItemFactory.AWP().getItemMeta().getLore()) ||
+                        fplayer.getCurrentItem().getItemMeta().getLore().equals(FalloutItemFactory.M97().getItemMeta().getLore()) ||
+                        fplayer.getCurrentItem().getItemMeta().getLore().equals(FalloutItemFactory.Topaz().getItemMeta().getLore())
+                ) {
                     Score line2 = obj.getScore(ChatColor.GOLD + "Current Weapon: " + ChatColor.AQUA + fplayer.getCurrentItem().getItemMeta().getDisplayName());
                     line2.setScore(2);
                     Score line3 = obj.getScore(ChatColor.GOLD + "Magazine: " + ChatColor.AQUA + fplayer.getAmmo() + "/" + fplayer.getMaxAmmo());
