@@ -17,3 +17,5 @@ commands:
     description: shows how much ammo you have
   test:
     description: testing
+  kit:
+    description: gives u kit

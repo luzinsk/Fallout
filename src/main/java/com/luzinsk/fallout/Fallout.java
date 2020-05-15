@@ -33,6 +33,7 @@ public class Fallout extends JavaPlugin {
 
         //Commands
         Objects.requireNonNull(getCommand("m4")).setExecutor(new M4Command());
+        Objects.requireNonNull(getCommand("kit")).setExecutor(new KitCommand());
         Objects.requireNonNull(getCommand("awp")).setExecutor(new AwpCommand());
         Objects.requireNonNull(getCommand("m97")).setExecutor(new M97Command());
         Objects.requireNonNull(getCommand("topaz")).setExecutor(new TopazCommand());
@@ -119,25 +120,11 @@ public class Fallout extends JavaPlugin {
 
                                         if (item.getItemMeta().getLore().equals(FalloutItemFactory.AWP().getItemMeta().getLore()) || item.getItemMeta().getLore().equals(FalloutItemFactory.M97().getItemMeta().getLore())) {
                                             if (fplayer.getTimer() > 0) {
-                                                fplayer.setTimer(fplayer.getTimer() - 1);
+                                                fplayer.setTimer(fplayer.getTimer() - 2);
                                             }
 
 
                                         }
-
-                                    /*if (!fplayer.hasAmmo() && meta.hasChargedProjectiles() && fplayer.canReload()) {
-                                        int count = 0;
-                                        for (ItemStack stack : player.getInventory().getContents()) {
-                                            if (stack != null && stack.getType() == Material.ARROW)
-                                                count += stack.getAmount();
-                                        }
-                                        if (count >= fplayer.getMaxAmmo() - 1)
-                                            fplayer.reload(fplayer.getMaxAmmo());
-                                        else
-                                            fplayer.reload(count + 1);
-                                        fplayer.createFalloutPlayerScoreboard();
-                                    } */
-
                                 }
                             }
                         }
@@ -145,7 +132,7 @@ public class Fallout extends JavaPlugin {
                 }
             }
 
-        }, 0, 1L);
+        }, 0, 2L);
 
         Bukkit.getLogger().log(Level.INFO, "Fallout finished starting.");
     }

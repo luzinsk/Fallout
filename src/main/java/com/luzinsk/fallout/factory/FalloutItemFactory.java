@@ -88,9 +88,9 @@ public class FalloutItemFactory {
         NamespacedKey ammo = new NamespacedKey(Fallout.instance, "ammo");
         NamespacedKey maxAmmo = new NamespacedKey(Fallout.instance, "maxAmmo");
         meta.getPersistentDataContainer().set(ammo, PersistentDataType.INTEGER, 0);
-        meta.getPersistentDataContainer().set(maxAmmo, PersistentDataType.INTEGER, 64);
+        meta.getPersistentDataContainer().set(maxAmmo, PersistentDataType.INTEGER, 8);
         meta.setLore(Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "OP"));
-        meta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "Topaz");
+        meta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "Toz");
         meta.setUnbreakable(true);
 
         Topaz.setItemMeta(meta);

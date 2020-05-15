@@ -50,7 +50,7 @@ public class PlayerListener implements Listener {
                 player.getInventory().addItem(new ItemStack(Material.ARROW, fplayer.getAmmo()));
                 fplayer.setAmmo(0);
                 fplayer.createFalloutPlayerScoreboard();
-            } else if (fplayer.hasAmmo() && item.getItemMeta().getLore().equals(FalloutItemFactory.AWP().getItemMeta().getLore()) && fplayer.getTimer() == 0) {
+            } else if (fplayer.hasAmmo() && item.getItemMeta().getLore().equals(FalloutItemFactory.AWP().getItemMeta().getLore()) && fplayer.getTimer() <= 0) {
                 fplayer.setAmmo(fplayer.getAmmo() - 1);
                 fplayer.setTimer(fplayer.getMaxTimer());
                 fplayer.createFalloutPlayerScoreboard();
@@ -64,7 +64,7 @@ public class PlayerListener implements Listener {
                 player.playSound(location, Sound.ENTITY_FIREWORK_ROCKET_BLAST, 2, 2);
                 player.playSound(location, Sound.ENTITY_GHAST_SHOOT, 2, 2);
 
-            } else if (fplayer.hasAmmo() && item.getItemMeta().getLore().equals(FalloutItemFactory.M97().getItemMeta().getLore()) && fplayer.getTimer() == 0) {
+            } else if (fplayer.hasAmmo() && item.getItemMeta().getLore().equals(FalloutItemFactory.M97().getItemMeta().getLore()) && fplayer.getTimer() <= 0) {
                 fplayer.setAmmo(fplayer.getAmmo() - 1);
                 fplayer.setTimer(fplayer.getMaxTimer());
                 meta = (CrossbowMeta) item.getItemMeta();
